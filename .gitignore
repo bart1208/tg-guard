@@ -1,0 +1,20 @@
+# credentials: never commit
+*.session
+*.session-journal
+.env
+drafts.log
+*.lock
+
+# local data
+downloads/
+models/
+
+# python
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/

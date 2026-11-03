@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tg-guard"
+version = "0.1.0"
+description = "Read your Telegram from the command line, without handing over the account: an allowlist guard at the MTProto layer, drafts instead of sends, local voice transcription."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Bartolomeo Pasquale" }]
+keywords = ["telegram", "cli", "telethon", "read-only", "ai-agents", "whisper"]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Topic :: Communications :: Chat",
+]
+dependencies = [
+    "telethon>=1.40,<2",
+    "qrcode>=7",
+]
+
+[project.optional-dependencies]
+transcribe = [
+    "faster-whisper==1.2.1",
+    "av>=14,<16",            # faster-whisper 1.2.1 passes metadata_errors, removed in PyAV 16
+]
+fast = ["cryptg"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+tg-guard = "tg_guard.cli:main"
+
+[project.urls]
+Repository = "https://github.com/bart1208/tg-guard"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tg_guard"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+src = ["src", "tests"]
